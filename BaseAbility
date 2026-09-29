@@ -1,0 +1,26 @@
+using UnityEngine;
+using MoreMountains.Feedbacks;
+
+public abstract class BaseAbility : MonoBehaviour
+{
+    public Projectile projectilePrefab;
+    public Transform firepoint;
+    public MMF_Player castFeedback;
+
+    public abstract void Execute();
+
+    public virtual void PlayFeeback()
+    {
+        castFeedback.PlayFeedbacks();
+    }
+
+    protected void Shoot(float speed,StatusEffect effect, float duration )
+    {
+        Projectile projectile = Instantiate(projectilePrefab, firepoint.position, Quaternion.identity);
+        projectile.speed = speed;
+        projectile.duration = duration;
+        projectile.effect = effect;
+    }
+
+
+}
