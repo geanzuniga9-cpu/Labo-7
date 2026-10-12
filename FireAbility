@@ -1,10 +1,21 @@
 using UnityEngine;
+using MoreMountains.Feedbacks;
 
 public class FireAbility : BaseAbility
 {
-  public override void Execute()
+    public MMF_Player fireFeedback;
+
+    public override void Execute()
     {
-        Shoot(10, StatusEffect.Burn, 3f);
-        PlayFeeback();
+        Shoot(10f, StatusEffect.Burn, 3f);
+        PlayFeedback();
+    }
+
+    protected override void PlayFeedback()
+    {
+        if (fireFeedback != null)
+            fireFeedback.PlayFeedbacks();
+
+        base.PlayFeedback();
     }
 }
