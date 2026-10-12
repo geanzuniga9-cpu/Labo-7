@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using MoreMountains.Feedbacks;
 
 public abstract class BaseAbility : MonoBehaviour
@@ -9,18 +10,32 @@ public abstract class BaseAbility : MonoBehaviour
 
     public abstract void Execute();
 
-    public virtual void PlayFeeback()
+    protected virtual void PlayFeedback()
     {
-        castFeedback.PlayFeedbacks();
+        if (castFeedback != null)
+            castFeedback.PlayFeedbacks();
     }
 
-    protected void Shoot(float speed,StatusEffect effect, float duration )
+    protected void Shoot(float speed, StatusEffect effect, float duration)
     {
-        Projectile projectile = Instantiate(projectilePrefab, firepoint.position, Quaternion.identity);
+        Vector3 posicionMouse = Mouse.current.position.ReadValue();
+
+        posicionMouse.z =
+            firepoint.position.z - Camera.main.transform.position.z;
+
+        Vector3 destino = Camera.main.ScreenToWorldPoint(posicionMouse);
+
+        Vector2 direccion = destino - firepoint.position;
+
+        Projectile projectile = Instantiate(
+            projectilePrefab,
+            firepoint.position,
+            Quaternion.identity
+        );
+
         projectile.speed = speed;
         projectile.duration = duration;
         projectile.effect = effect;
+        projectile.direction = direccion.normalized;
     }
-
-
 }
