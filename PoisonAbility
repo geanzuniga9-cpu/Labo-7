@@ -1,0 +1,10 @@
+using UnityEngine;
+
+public class PoisonAbility : BaseAbility
+{
+    public override void Execute()
+    {
+        Shoot(7f, StatusEffect.Poison, 5f);
+        PlayFeedback();
+    }
+}
