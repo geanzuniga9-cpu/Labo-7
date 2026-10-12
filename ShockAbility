@@ -1,0 +1,10 @@
+using UnityEngine;
+
+public class ShockAbility : BaseAbility
+{
+    public override void Execute()
+    {
+        Shoot(15f, StatusEffect.Shock, 2f);
+        PlayFeedback();
+    }
+}
